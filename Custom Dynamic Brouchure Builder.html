@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ViaTecnologia Assicurazione IT - Brochure</title>
+  <style>
+    :root {
+      --primary-color: #3b82f6;
+      --secondary-color: #8b5cf6;
+      --accent-color: #f59e0b;
+      --text-light: #ffffff;
+      --text-dark: #333333;
+      --text-gray: #666666;
+      --background-light: #f9fafb;
+      --background-dark: #1f2937;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition-time: 0.3s;
+      --border-radius: 8px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f0f2f5;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 1.5rem; /* Titolo più piccolo */
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+    }
+    
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+    }
+    
+    @media (min-width: 992px) {
+      .grid {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+      }
+    }
+    
+    .brochure-container {
+      width: 100%;
+      max-width: 650px;
+      height: 920px;
+      perspective: 1000px;
+      margin: 0 auto;
+      order: 1;
+    }
+    
+    .brochure {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform var(--transition-time);
+    }
+    
+    .brochure.flipped {
+      transform: rotateY(180deg);
+    }
+    
+    .brochure-front, .brochure-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    
+    .brochure-front {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--text-light);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .brochure-back {
+      background: var(--background-light);
+      color: var(--text-dark);
+      transform: rotateY(180deg);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .logo-highlight {
+      color: var(--accent-color);
+    }
+    
+    .brochure-title {
+      font-size: 2.25rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .subtitle {
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+    
+    .client-info {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .info-row {
+      display: flex;
+      margin-bottom: 0.75rem;
+      word-break: break-word;
+    }
+    
+    .info-label {
+      font-weight: bold;
+      width: 130px;
+      flex-shrink: 0;
+    }
+    
+    .info-value {
+      flex-grow: 1;
+      overflow-wrap: break-word;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 1.5rem;
+      margin-bottom: 1.5rem;
+      max-height: 200px;
+      overflow-y: auto; /* Permette lo scroll se ci sono troppi servizi */
+    }
+    
+    .service-item {
+      display: flex;
+      align-items: center;
+    }
+    
+    .service-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+      color: var(--text-light);
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    
+    .brochure-footer {
+      margin-top: auto;
+      text-align: center;
+    }
+    
+    .qr-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    
+    .back-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .plan-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .plan-price {
+      font-size: 1.25rem;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .plan-description {
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    
+    .highlight {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    
+    .pricing-table th,
+    .pricing-table td {
+      padding: 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .pricing-table th {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    
+    .how-it-works {
+      background-color: #f1f5f9;
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+    }
+    
+    .contact-icon {
+      margin-right: 0.5rem;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .fine-print {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      text-align: center;
+      margin-top: auto;
+    }
+    
+    .color-selector {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #ddd;
+      transition: all 0.3s;
+    }
+    
+    .color-option:hover, .color-option.selected {
+      transform: scale(1.1);
+      border-color: #333;
+    }
+    
+    .custom-service-container {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.375rem;
+    }
+    
+    .custom-service-header {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .custom-service-input {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .custom-service-input input {
+      flex: 1;
+    }
+    
+    .custom-service-input button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 0.375rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .custom-service-input button:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .custom-services-list {
+      margin-top: 0.5rem;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    
+    .custom-service-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .delete-service {
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    
+    .buttons-container {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+    }
+    
+    .button-primary {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+    }
+    
+    .button-primary:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .button-success {
+      background-color: #10b981;
+      color: var(--text-light);
+    }
+    
+    .button-success:hover {
+      background-color: #059669;
+    }
+    
+    .watermark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.05;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+    
+    /* Stili per l'accordion */
+    .accordion {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .accordion {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .accordion {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .accordion-item {
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+    
+    .accordion-header {
+      background-color: #f5f5f5;
+      padding: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+    
+    .accordion-header:hover {
+      background-color: #e9e9e9;
+    }
+    
+    .accordion-header.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .accordion-content {
+      padding: 0.75rem;
+      display: none;
+    }
+    
+    .accordion-content.active {
+      display: block;
+    }
+    
+    .accordion-icon {
+      transition: transform 0.3s;
+    }
+    
+    .accordion-header.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+    
+    /* Stili per il pulsante di personalizzazione */
+    .customize-button {
+      display: block;
+      width: 100%;
+      max-width: 650px;
+      margin: 1rem auto;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      text-align: center;
+    }
+    
+    .customize-button:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+    
+    /* Stili per l'overlay di personalizzazione */
+    .customization-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      padding: 2rem 1rem;
+    }
+    
+    .customization-panel {
+      background-color: white;
+      border-radius: var(--border-radius);
+      width: 100%;
+      max-width: 1000px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+      position: relative;
+    }
+    
+    .close-overlay {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+    
+    /* Stili per la stampa */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      
+      .print-container {
+        visibility: visible;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .print-header {
+        display: none !important;
+      }
+      
+      .print-pages {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .print-page {
+        width: 48%;
+        height: auto;
+        aspect-ratio: 1/1.414;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+      }
+      
+      .print-front, .print-back {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+      }
+      
+      .print-front {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--text-light);
+        padding: 2rem;
+      }
+      
+      .print-back {
+        background: var(--background-light);
+        color: var(--text-dark);
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ViaTecnologia Assicurazione IT - Creatore Brochure</h1>
+    
+    <div class="grid">
+      <!-- Brochure Container -->
+      <div class="brochure-container">
+        <div class="brochure" id="brochure">
+          <div class="brochure-front">
+            <div class="watermark" id="brochureWatermark"></div>
+            
+            <div class="logo-container">
+              <div class="logo">Via<span class="logo-highlight">Tecnologia</span></div>
+            </div>
+            
+            <div class="brochure-title">Assicurazione IT</div>
+            <div class="subtitle">La tua protezione digitale completa</div>
+            
+            <div class="client-info">
+              <div class="info-row">
+                <div class="info-label">Cliente:</div>
+                <div class="info-value" id="clientName">Nome Cognome</div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">ID Cliente:</div>
+                <div class="info-value" id="clientId">VT-123456789</div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Email:</div>
+                <div class="info-value" id="clientEmail">email@esempio.com</div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Telefono:</div>
+                <div class="info-value" id="clientPhone">123-456-7890</div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Piano:</div>
+                <div class="info-value" id="clientPlan">Free</div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Data di Scadenza:</div>
+                <div class="info-value" id="clientExpiry">31/12/2025</div>
+              </div>
+            </div>
+            
+            <div class="section-title">Servizi Inclusi</div>
+            <div class="services-grid" id="servicesGrid">
+              <!-- Servizi verranno aggiunti qui dal JavaScript -->
+            </div>
+            
+            <div class="brochure-footer">
+              <div class="qr-container" id="qrContainer"></div>
+              <div>Scansiona il codice QR per attivare i tuoi servizi</div>
+            </div>
+          </div>
+          
+          <div class="brochure-back">
+            <div class="watermark" id="backBrochureWatermark"></div>
+            
+            <div class="back-section">
+              <div class="plan-title" id="backPlanTitle">Piano Free</div>
+              <div class="plan-price" id="backPlanPrice">€0.00 / Mensile</div>
+              <div class="plan-description" id="backPlanDescription">
+                <!-- La descrizione del piano verrà aggiunta qui dal JavaScript -->
+              </div>
+            </div>
+            
+            <!-- Sezione confronto piani -->
+            <div class="back-section plans-comparison">
+              <div class="section-title">Confronto Piani</div>
+              
+              <div class="plan-summary">
+                <div class="plan-title" style="font-size: 1.2rem; color: #10b981;">Piano Free</div>
+                <p>Accesso alla comunità di supporto e assistenza base per problemi tecnici semplici.</p>
+                <p><strong>Prezzo:</strong> €0.00 / Mensile</p>
+              </div>
+              
+              <div class="plan-summary">
+                <div class="plan-title" style="font-size: 1.2rem; color: #3b82f6;">Piano Premium</div>
+                <p>Assistenza prioritaria 24/7 con risparmi fino al 98% rispetto alla gestione classica.</p>
+                <p><strong>Prezzo:</strong> €1108.00 / Anno (€92.33 / Mese)</p>
+              </div>
+              
+              <div class="plan-summary">
+                <div class="plan-title" style="font-size: 1.2rem; color: #8b5cf6;">Piano Enterprise</div>
+                <p>Soluzione su misura con team dedicato di 7 esperti e supporto prioritario continuo.</p>
+                <p><strong>Prezzo:</strong> Personalizzato in base alle esigenze aziendali</p>
+              </div>
+            </div>
+            
+            <div class="back-section" id="pricingSection">
+              <div class="section-title">Dettaglio Prezzi</div>
+              <div class="pricing-explanation">
+                Il prezzo mensile indicato rappresenta il costo per l'assistenza specializzata in ciascun settore. Scegliendo il piano Premium, ottieni un risparmio fino al 98% rispetto al costo standard di intervento tecnico (in media €220 per intervento).
+              </div>
+              <table class="pricing-table" id="pricingTable">
+                <thead>
+                  <tr>
+                    <th>Servizio</th>
+                    <th>Prezzo</th>
+                    <th>Descrizione</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- I prezzi verranno aggiunti qui dal JavaScript -->
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="back-section">
+              <div class="section-title">Dettagli Assistenza</div>
+              <div class="how-it-works">
+                <p><span class="highlight">Come funziona:</span> La tua brochure ViaTecnologia ti garantisce accesso immediato ai nostri servizi di assistenza informatica professionale. Scansiona il QR code per attivare i tuoi vantaggi!</p>
+                <p><span class="highlight">Scopo dell'Assicurazione:</span> Proteggere clienti e aziende da problemi informatici, garantendo assistenza tecnica professionale, supporto per la cybersecurity, e ripristino rapido dei servizi in caso di malfunzionamenti o attacchi informatici.</p>
+                <p id="customDescriptionText"></p>
+              </div>
+            </div>
+            
+            <div class="back-section">
+              <div class="section-title">Contatti</div>
+              <div class="contact-info">
+                <div class="contact-item">
+                  <span class="contact-icon">📞</span>
+                  <span>0123-456789</span>
+                </div>
+                <div class="contact-item">
+                  <span class="contact-icon">✉️</span>
+                  <span>info@viatecnologia.it</span>
+                </div>
+                <div class="contact-item">
+                  <span class="contact-icon">🌐</span>
+                  <span>www.viatecnologia.it</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="fine-print">
+              ViaTecnologia Assicurazione IT &copy; 2025. Tutti i diritti riservati. I termini e le condizioni complete sono disponibili sul nostro sito web.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pulsante per aprire il pannello di personalizzazione -->
+      <button class="customize-button" id="customizeButton">Personalizza la Brochure</button>
+      
+      <!-- Pulsanti per ruotare e stampare -->
+      <div class="buttons-container" style="max-width: 650px; margin: 0 auto;">
+        <button class="button button-primary" id="flipButton">Ruota la Brochure</button>
+        <button class="button button-success" id="printButton">Stampa</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Overlay di personalizzazione -->
+  <div class="customization-overlay" id="customizationOverlay">
+    <div class="customization-panel">
+      <button class="close-overlay" id="closeOverlay">&times;</button>
+      <h2 style="margin-bottom: 1rem; font-size: 1.25rem;">Personalizza la Brochure</h2>
+      
+      <!-- Accordion per le personalizzazioni -->
+      <div class="accordion" id="customizationAccordion">
+        <!-- Dati Cliente -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="clientData">
+            Dati Cliente
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="clientData">
+            <div class="form-group">
+              <label for="name">Nome Cliente</label>
+              <input id="name" type="text" value="Nome Cognome">
+            </div>
+            
+            <div class="form-group">
+              <label for="id">ID Cliente</label>
+              <input id="id" type="text" value="VT-123456789">
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" type="email" value="email@esempio.com">
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Telefono</label>
+              <input id="phone" type="text" value="123-456-7890">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Piano -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="planData">
+            Piano
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="planData">
+            <div class="form-group">
+              <label for="plan">Piano di Assicurazione</label>
+              <select id="plan">
+                <option value="Free">Free - €0.00 / Mensile</option>
+                <option value="Premium">Premium - €1108.00 / 1 Anno</option>
+                <option value="Enterprise">Enterprise - Personalizzato / Personalizzato</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="expiry">Data di Scadenza</label>
+              <input id="expiry" type="date" value="2025-12-31">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Descrizione -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="descriptionData">
+            Descrizione
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="descriptionData">
+            <div class="form-group">
+              <label for="custom-description">Descrizione Personalizzata</label>
+              <textarea id="custom-description" class="description-textarea" placeholder="Inserisci una descrizione personalizzata..."></textarea>
+            </div>
+          </div>
+        </div>
+        
+        <!-- QR Code -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="qrCodeData">
+            QR Code
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="qrCodeData">
+            <div class="form-group">
+              <label for="qr-code-url">URL per QR Code</label>
+              <input id="qr-code-url" type="url" placeholder="https://esempio.com/attivazione/123" value="https://viatecnologia.it/attiva">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Colori -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="colorsData">
+            Colori
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="colorsData">
+            <div class="form-group">
+              <label>Colori della Brochure</label>
+              <div class="color-selector" id="colorSelector">
+                <!-- I colori verranno aggiunti dinamicamente -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Logo -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="logoData">
+            Logo
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="logoData">
+            <div class="form-group">
+              <label for="watermark">Logo o Filigrana (Immagine)</label>
+              <input type="file" id="watermark" accept="image/*">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Servizi -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="servicesData">
+            Servizi
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="servicesData">
+            <div class="custom-service-container">
+              <div class="custom-service-header">Aggiungi Servizi Personalizzati</div>
+              <div class="custom-service-input">
+                <input type="text" id="customServiceInput" placeholder="Nuovo servizio">
+                <button id="addCustomService">Aggiungi</button>
+              </div>
+              <div class="custom-services-list" id="customServicesList">
+                <!-- I servizi personalizzati verranno aggiunti qui -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Zoom -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="zoomData">
+            Zoom
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="zoomData">
+            <div class="form-group">
+              <label for="brochure-zoom-control">Livello di Zoom</label>
+              <input type="range" id="brochure-zoom-control" min="50" max="150" value="100">
+              <span id="zoom-value-control">100%</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Stampa -->
+        <div class="accordion-item">
+          <div class="accordion-header" data-target="printData">
+            Stampa
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content" id="printData">
+            <button class="button button-success" id="printButtonAlt">Stampa Brochure</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contenitore per la stampa -->
+  <div class="print-container" style="display: none;">
+    <div class="print-header">
+      <h2>Anteprima di Stampa - ViaTecnologia Assicurazione IT</h2>
+    </div>
+    <div class="print-pages">
+      <div class="print-page">
+        <div class="print-front" id="printFront">
+          <!-- Il contenuto del fronte verrà clonato qui per la stampa -->
+        </div>
+      </div>
+      <div class="print-page">
+        <div class="print-back" id="printBack">
+          <!-- Il contenuto del retro verrà clonato qui per la stampa -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Piani disponibili
+    const plans = [
+      {
+        name: "Free",
+        price: 0,
+        duration: "Mensile",
+        sectors: [
+          "Gruppo Pubblico per richieste",
+          "Ticket da Bot di Telegram",
+          "Flusso normale senza priorità",
+          "Non rispondiamo a chiamate",
+          "Supporto per problemi tecnici base"
+        ],
+        description: "Il piano <span class='highlight'>Free</span> ti offre accesso alla nostra comunità di supporto e assistenza di base. Ideale per utenti privati con necessità occasionali di supporto IT.",
+        pricing: []
+      },
+      {
+        name: "Premium",
+        price: 1108.0,
+        duration: "1 Anno",
+        sectors: [
+          "Cliente VIP",
+          "Priorità 24/7 a costo 0€",
+          "Sconti fino al 98%",
+          "Assistenza Professionale",
+          "Possibilità di chiamarci",
+          "2 Esperti + AI",
+          "Protezione da virus e malware",
+          "Supporto per backup dati"
+        ],
+        description: "Il piano <span class='highlight'>Premium</span> ti offre assistenza prioritaria 24/7 con risparmi fino al 98% rispetto alla gestione classica di una richiesta che normalmente comporta scontrini medi da 220,00€.",
+        pricing: [
+          { service: "Smartphone", price: "8,33€" },
+          { service: "PC", price: "12,50€" },
+          { service: "IoT", price: "6,66€" },
+          { service: "Software/App", price: "12,00€" },
+          { service: "Criptovalute", price: "10,83€" },
+          { service: "Siti Web", price: "12,00€" },
+          { service: "Cybersecurity", price: "12,50€" },
+          { service: "Backup Aziendali", price: "15,00€" }
+        ]
+      },
+      {
+        name: "Enterprise",
+        price: "Personalizzato",
+        duration: "Personalizzato",
+        sectors: [
+          "Azienda VIP",
+          "Priorità 24/7 garantita",
+          "Sconti fino al 98%",
+          "Assistenza Professionale",
+          "Possibilità di chiamarci",
+          "7 Esperti + AI",
+          "Team Dedicato",
+          "Cybersecurity avanzata",
+          "Disaster recovery",
+          "Consulenza IT strategica"
+        ],
+        description: "La soluzione <span class='highlight'>Enterprise</span> è studiata su misura per le aziende che necessitano di assistenza IT completa. Un team di 7 esperti più intelligenza artificiale avanzata, supporto prioritario continuo e un gruppo dedicato esclusivamente ai tuoi progetti.",
+        pricing: [
+          { service: "Smartphone", price: "8,33€" },
+          { service: "PC", price: "12,50€" },
+          { service: "IoT", price: "6,66€" },
+          { service: "Software/App", price: "12,00€" },
+          { service: "Criptovalute", price: "10,83€" },
+          { service: "Siti Web", price: "12,00€" },
+          { service: "Cybersecurity", price: "12,50€" },
+          { service: "Backup Aziendali", price: "15,00€" }
+        ]
+      }
+    ];
+    
+    // Colori predefiniti per le brochure
+    const brochureColors = [
+      { name: "Blu", primary: "#3b82f6", secondary: "#8b5cf6", accent: "#f59e0b" },
+      { name: "Verde", primary: "#10b981", secondary: "#059669", accent: "#f59e0b" },
+      { name: "Rosso", primary: "#ef4444", secondary: "#b91c1c", accent: "#f59e0b" },
+      { name: "Arancione", primary: "#f97316", secondary: "#c2410c", accent: "#3b82f6" },
+      { name: "Rosa", primary: "#ec4899", secondary: "#be185d", accent: "#f59e0b" },
+      { name: "Grigio", primary: "#6b7280", secondary: "#374151", accent: "#f59e0b" },
+      { name: "Oro", primary: "#d97706", secondary: "#92400e", accent: "#3b82f6" },
+      { name: "Acqua", primary: "#06b6d4", secondary: "#0891b2", accent: "#f59e0b" }
+    ];
+    
+    // Elementi DOM
+    const nameInput = document.getElementById('name');
+    const idInput = document.getElementById('id');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const expiryInput = document.getElementById('expiry');
+    const planSelect = document.getElementById('plan');
+    const customDescriptionInput = document.getElementById('custom-description');
+    const qrCodeUrlInput = document.getElementById('qr-code-url');
+    const watermarkInput = document.getElementById('watermark');
+    const clientNameEl = document.getElementById('clientName');
+    const clientIdEl = document.getElementById('clientId');
+    const clientEmailEl = document.getElementById('clientEmail');
+    const clientPhoneEl = document.getElementById('clientPhone');
+    const clientPlanEl = document.getElementById('clientPlan');
+    const clientExpiryEl = document.getElementById('clientExpiry');
+    const servicesGridEl = document.getElementById('servicesGrid');
+    const qrContainerEl = document.getElementById('qrContainer');
+    const backPlanTitleEl = document.getElementById('backPlanTitle');
+    const backPlanPriceEl = document.getElementById('backPlanPrice');
+    const backPlanDescriptionEl = document.getElementById('backPlanDescription');
+    const pricingTableEl = document.getElementById('pricingTable').querySelector('tbody');
+    const customDescriptionTextEl = document.getElementById('customDescriptionText');
+    const brochureEl = document.getElementById('brochure');
+    const brochureWatermarkEl = document.getElementById('brochureWatermark');
+    const backBrochureWatermarkEl = document.getElementById('backBrochureWatermark');
+    const customServiceInput = document.getElementById('customServiceInput');
+    const addCustomServiceBtn = document.getElementById('addCustomService');
+    const customServicesList = document.getElementById('customServicesList');
+    const colorSelector = document.getElementById('colorSelector');
+    const flipButton = document.getElementById('flipButton');
+    const printButton = document.getElementById('printButton');
+    const printButtonAlt = document.getElementById('printButtonAlt');
+    const customizeButton = document.getElementById('customizeButton');
+    const customizationOverlay = document.getElementById('customizationOverlay');
+    const closeOverlayBtn = document.getElementById('closeOverlay');
+    const printFrontEl = document.getElementById('printFront');
+    const printBackEl = document.getElementById('printBack');
+    const printContainer = document.querySelector('.print-container');
+    const zoomControlSlider = document.getElementById('brochure-zoom-control');
+    const zoomControlValue = document.getElementById('zoom-value-control');
+    
+    // Servizi personalizzati
+    let customServices = [];
+    
+    // Impostazioni correnti
+    let currentColorScheme = brochureColors[0];
+    let currentZoom = 100;
+    
+    // Inizializza i colori della brochure
+    function initColorSelector() {
+      brochureColors.forEach((color, index) => {
+        const colorOption = document.createElement('div');
+        colorOption.className = `color-option ${index === 0 ? 'selected' : ''}`;
+        colorOption.style.background = `linear-gradient(135deg, ${color.primary}, ${color.secondary})`;
+        colorOption.setAttribute('data-index', index);
+        colorOption.addEventListener('click', () => {
+          document.querySelectorAll('.color-option').forEach(option => option.classList.remove('selected'));
+          colorOption.classList.add('selected');
+          
+          // Aggiorna lo schema di colori
+          currentColorScheme = brochureColors[index];
+          applyColorScheme();
+        });
+        
+        colorSelector.appendChild(colorOption);
+      });
+    }
+    
+    // Applica lo schema di colori scelto
+    function applyColorScheme() {
+      document.documentElement.style.setProperty('--primary-color', currentColorScheme.primary);
+      document.documentElement.style.setProperty('--secondary-color', currentColorScheme.secondary);
+      document.documentElement.style.setProperty('--accent-color', currentColorScheme.accent);
+    }
+    
+    // Funzione per formattare la data
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    }
+    
+    // Crea il QR code
+    function generateQRCode(url) {
+      // Pulisci il contenitore del QR
+      qrContainerEl.innerHTML = '';
+      
+      // Usa un'API gratuita per generare un QR code
+      const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=150x150&margin=10`;
+      
+      // Crea l'elemento immagine
+      const qrImage = document.createElement('img');
+      qrImage.src = qrImageUrl;
+      qrImage.alt = 'QR Code';
+      qrImage.style.maxWidth = '100%';
+      
+      // Aggiungi al contenitore
+      qrContainerEl.appendChild(qrImage);
+    }
+    
+    // Funzione per gestire lo zoom della brochure
+    function updateZoom(zoom) {
+      currentZoom = zoom;
+      zoomControlValue.textContent = `${zoom}%`;
+      
+      const scale = zoom / 100;
+      brochureEl.style.transform = `scale(${scale})`;
+      brochureEl.style.transformOrigin = 'top center';
+    }
+    
+    // Aggiorna la brochure con i dati dell'utente
+    function updateBrochure() {
+      // Aggiorna le informazioni del cliente
+      clientNameEl.textContent = nameInput.value;
+      clientIdEl.textContent = idInput.value;
+      clientEmailEl.textContent = emailInput.value;
+      clientPhoneEl.textContent = phoneInput.value;
+      clientPlanEl.textContent = planSelect.value;
+      clientExpiryEl.textContent = formatDate(expiryInput.value);
+      
+      // Trova il piano selezionato
+      const selectedPlan = plans.find(plan => plan.name === planSelect.value);
+      
+      // Aggiorna i servizi
+      servicesGridEl.innerHTML = '';
+      selectedPlan.sectors.forEach(service => {
+        const serviceItem = document.createElement('div');
+        serviceItem.className = 'service-item';
+        serviceItem.innerHTML = `
+          <div class="service-icon">✓</div>
+          <div>${service}</div>
+        `;
+        servicesGridEl.appendChild(serviceItem);
+      });
+      
+      // Aggiungi i servizi personalizzati
+      customServices.forEach(service => {
+        const serviceItem = document.createElement('div');
+        serviceItem.className = 'service-item';
+        serviceItem.innerHTML = `
+          <div class="service-icon">✓</div>
+          <div>${service}</div>
+        `;
+        servicesGridEl.appendChild(serviceItem);
+      });
+      
+      // Aggiorna i dettagli del piano sul retro
+      backPlanTitleEl.textContent = `Piano ${selectedPlan.name}`;
+      backPlanPriceEl.textContent = `€${selectedPlan.price} / ${selectedPlan.duration}`;
+      backPlanDescriptionEl.innerHTML = selectedPlan.description;
+      
+      // Aggiorna la tabella dei prezzi
+      pricingTableEl.innerHTML = '';
+      if (selectedPlan.pricing && selectedPlan.pricing.length > 0) {
+        selectedPlan.pricing.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${item.service}</td>
+            <td>${item.price}</td>
+            <td>Assistenza specializzata</td>
+          `;
+          pricingTableEl.appendChild(row);
+        });
+      } else {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>Accesso base</td>
+          <td>Gratuito</td>
+          <td>Assistenza limitata</td>
+        `;
+        pricingTableEl.appendChild(row);
+      }
+      
+      // Aggiorna la descrizione personalizzata
+      customDescriptionTextEl.innerHTML = customDescriptionInput.value;
+      
+      // Genera il QR code
+      generateQRCode(qrCodeUrlInput.value);
+    }
+    
+    // Funzione per aggiungere un servizio personalizzato
+    function addCustomService() {
+      const serviceText = customServiceInput.value.trim();
+      if (serviceText) {
+        customServices.push(serviceText);
+        renderCustomServices();
+        customServiceInput.value = '';
+        updateBrochure();
+      }
+    }
+    
+    // Funzione per eliminare un servizio personalizzato
+    function deleteCustomService(index) {
+      customServices.splice(index, 1);
+      renderCustomServices();
+      updateBrochure();
+    }
+    
+    // Render dei servizi personalizzati
+    function renderCustomServices() {
+      customServicesList.innerHTML = '';
+      
+      customServices.forEach((service, index) => {
+        const serviceItem = document.createElement('div');
+        serviceItem.className = 'custom-service-item';
+        serviceItem.innerHTML = `
+          <div>${service}</div>
+          <div class="delete-service" data-index="${index}">×</div>
+        `;
+        customServicesList.appendChild(serviceItem);
+      });
+      
+      // Aggiungi eventi ai pulsanti di eliminazione
+      document.querySelectorAll('.delete-service').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = parseInt(e.target.getAttribute('data-index'));
+          deleteCustomService(index);
+        });
+      });
+    }
+    
+    // Gestione del file di filigrana
+    watermarkInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          brochureWatermarkEl.style.backgroundImage = `url(${event.target.result})`;
+          backBrochureWatermarkEl.style.backgroundImage = `url(${event.target.result})`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // Inizializza l'accordion
+    function initAccordion() {
+      const accordionHeaders = document.querySelectorAll('.accordion-header');
+      
+      accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+          const targetId = header.getAttribute('data-target');
+          const content = document.getElementById(targetId);
+          
+          // Toggle active class
+          header.classList.toggle('active');
+          
+          // Toggle content visibility
+          if (content.classList.contains('active')) {
+            content.classList.remove('active');
+            content.style.display = 'none';
+          } else {
+            content.classList.add('active');
+            content.style.display = 'block';
+          }
+        });
+      });
+    }
+    
+    // Funzione per preparare l'anteprima di stampa
+    function preparePrintView() {
+      // Clona il contenuto del fronte e del retro
+      printFrontEl.innerHTML = '';
+      printBackEl.innerHTML = '';
+      
+      const frontContent = document.querySelector('.brochure-front').cloneNode(true);
+      const backContent = document.querySelector('.brochure-back').cloneNode(true);
+      
+      printFrontEl.appendChild(frontContent);
+      printBackEl.appendChild(backContent);
+      
+      // Mostra il contenitore di stampa
+      printContainer.style.display = 'block';
+      
+      // Avvia la stampa
+      window.print();
+      
+      // Nascondi il contenitore dopo la stampa
+      setTimeout(() => {
+        printContainer.style.display = 'none';
+      }, 1000);
+    }
+    
+    // Inizializza la brochure
+    function initialize() {
+      initColorSelector();
+      applyColorScheme();
+      initAccordion();
+      updateBrochure();
+      
+      // Apri la prima tendina all'avvio nell'overlay
+      const firstHeader = document.querySelector('.accordion-header');
+      if (firstHeader) {
+        firstHeader.click();
+      }
+      
+      // Aggiungi gli ascoltatori di eventi per i campi di input
+      nameInput.addEventListener('input', updateBrochure);
+      idInput.addEventListener('input', updateBrochure);
+      emailInput.addEventListener('input', updateBrochure);
+      phoneInput.addEventListener('input', updateBrochure);
+      expiryInput.addEventListener('input', updateBrochure);
+      planSelect.addEventListener('change', updateBrochure);
+      customDescriptionInput.addEventListener('input', updateBrochure);
+      qrCodeUrlInput.addEventListener('input', updateBrochure);
+      
+      // Ascoltatore per aggiungere servizi personalizzati
+      addCustomServiceBtn.addEventListener('click', addCustomService);
+      customServiceInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          addCustomService();
+        }
+      });
+      
+      // Gestione dello zoom
+      zoomControlSlider.addEventListener('input', function() {
+        updateZoom(this.value);
+      });
+      
+      // Flip della brochure
+      flipButton.addEventListener('click', function() {
+        brochureEl.classList.toggle('flipped');
+      });
+      
+      // Stampa della brochure
+      printButton.addEventListener('click', preparePrintView);
+      printButtonAlt.addEventListener('click', preparePrintView);
+      
+      // Gestione dell'overlay di personalizzazione
+      customizeButton.addEventListener('click', function() {
+        customizationOverlay.style.display = 'flex';
+      });
+      
+      closeOverlayBtn.addEventListener('click', function() {
+        customizationOverlay.style.display = 'none';
+      });
+      
+      // Chiudi l'overlay se si clicca fuori dal pannello
+      customizationOverlay.addEventListener('click', function(e) {
+        if (e.target === customizationOverlay) {
+          customizationOverlay.style.display = 'none';
+        }
+      });
+    }
+    
+    // Avvia l'applicazione
+    document.addEventListener('DOMContentLoaded', initialize);
+  </script>
+</body>
+</html>
